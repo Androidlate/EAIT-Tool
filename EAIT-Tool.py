@@ -6,7 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 from config import VERSION
 from admin import *
-from functions import *
+from functions import *  # <-- Achtung: Hier wird das Slot-Spiel importiert
 from veyon import *
 import PIL.Image
 import PIL.ImageTk
@@ -115,7 +115,7 @@ def build_main_gui():
     # Cursor
     cursor_path = resource_path(os.path.join("data", "adobe_normal.cur"))
     try:
-        root.config(cursor=f"@{cursor_path.replace(os.sep, '/')}")
+        root.config(cursor=f"@{cursor_path.replace(os.sep, '/')}") 
     except Exception as e:
         print(f"⚠️ Cursor-Setzen fehlgeschlagen: {e}")
         root.config(cursor="arrow")
@@ -201,6 +201,14 @@ def build_main_gui():
         ttk.Button(action_frame, image=brave_icon, command=start_brave_and_cleanup_threaded).pack(side="left", padx=5)
     except:
         pass
+    
+    # Add Casino Slots button next to Brave
+    try:
+        # Create a slots button with a text icon (could replace with image if you have one)
+        slots_button = ttk.Button(action_frame, text="🎰", width=3, command=start_slots_game_threaded)
+        slots_button.pack(side="left", padx=5)
+    except Exception as e:
+        print(f"⚠️ Slots Button Error: {e}")
 
     set_root_ref(root)
     set_globals(root, status_var, status_label_)
@@ -223,4 +231,22 @@ def safe_mainloop():
 # ----------------------------------------------
 # LAUNCH:
 show_loading_screen(root)  # Zeig Ladescreen
+# -------------------------------------
+# Wenn Main Window geschlossen wird: Alles beenden
+def on_main_close():
+    try:
+        # ALLE offenen Fenster killen
+        for window in root.winfo_children():
+            if isinstance(window, tk.Toplevel):
+                window.destroy()
+
+        root.destroy()
+        sys.exit(0)
+    except Exception as e:
+        print(f"⚠️ Fehler beim Beenden: {e}")
+        root.destroy()
+        sys.exit(1)
+
+# Wichtig: Close-Handler anhängen
+root.protocol("WM_DELETE_WINDOW", on_main_close)
 safe_mainloop()            # Mainloop

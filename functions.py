@@ -11,6 +11,8 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from veyon import *
+import random
+from PIL import Image, ImageTk
 
 root = None
 status_var = None
@@ -231,3 +233,152 @@ def set_custom_cursors(widget, normal_cursor_path="adobe_normal.cur", click_curs
 
     apply_cursor_recursive(widget)
     print("✅ Adobe Cursor Style aktiv: Normal überall, Click nur bei Buttons")
+
+def build_slots_ui(window):
+    from PIL import Image, ImageTk
+    import random
+    from tkinter import Label, Button
+
+    symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "7️⃣", "🎰"]
+    symbol_values = {"🍒": 1, "🍋": 2, "🍊": 3, "🍇": 5, "💎": 10, "7️⃣": 15, "🎰": 25}
+    credits = 100
+
+    bg_image_path = resource_path(os.path.join("data", "casino_background.png"))
+    print(f"[DEBUG] Hintergrundpfad: {bg_image_path}")
+    print(f"[DEBUG] Existiert Hintergrundbild? {os.path.exists(bg_image_path)}")
+
+    try:
+        bg_image = Image.open(bg_image_path).resize((500, 400), Image.LANCZOS)
+        bg_photo = ImageTk.PhotoImage(bg_image)
+    except Exception as e:
+        print(f"⚠️ Fehler beim Laden des Hintergrunds: {e}")
+        return
+
+    # Canvas mit Hintergrund
+    canvas = tk.Canvas(window, width=500, height=400, highlightthickness=0, bd=0)
+    canvas.pack(fill="both", expand=True)
+    canvas.create_image(0, 0, image=bg_photo, anchor="nw")
+    canvas.bg_photo = bg_photo  # Referenz halten!
+
+    # Credits Label
+    credits_label = Label(canvas, text=f"Credits: {credits}", font=(FONT_FAMILY, 16, "bold"), bg="black", fg="white")
+    canvas.create_window(250, 30, window=credits_label)
+
+    # Message Label
+    message_label = Label(canvas, text="Good luck!", font=(FONT_FAMILY, 12), bg="black", fg="yellow")
+    canvas.create_window(250, 60, window=message_label)
+
+    # Slots
+    slot_labels = []
+    for i in range(3):
+        slot = Label(canvas, text="🎰", font=(FONT_FAMILY, 40), bg='black', fg="white", width=2)
+        canvas.create_window(150 + i * 100, 140, window=slot)
+        slot_labels.append(slot)
+
+    # Check Win Funktion
+    def check_win(result):
+        if result[0] == result[1] == result[2]:
+            return symbol_values.get(result[0], 1) * 10
+        elif result[0] == result[1] or result[1] == result[2] or result[0] == result[2]:
+            match = result[1] if result[1] == result[2] else result[0]
+            return symbol_values.get(match, 1) * 2
+        return 0
+
+    # SPIN Funktion
+    def spin():
+        nonlocal credits
+        if credits < 5:
+            message_label.config(text="Not enough credits!", fg="red")
+            return
+        credits -= 5
+        credits_label.config(text=f"Credits: {credits}")
+        message_label.config(text="Spinning...", fg="yellow")
+        spin_button.config(state="disabled")
+
+        def animate(count=0):
+            nonlocal credits
+            if count < 10:
+                for slot in slot_labels:
+                    slot.config(text=random.choice(symbols))
+                window.after(100, lambda: animate(count + 1))
+            else:
+                result = [random.choice(symbols) for _ in range(3)]
+                for i, s in enumerate(result):
+                    slot_labels[i].config(text=s)
+                win = check_win(result)
+                if win:
+                    credits += win
+                    message_label.config(text=f"You won {win} credits!", fg="yellow")
+                    credits_label.config(text=f"Credits: {credits}")
+                else:
+                    message_label.config(text="Try again!", fg="white")
+                spin_button.config(state="normal")
+
+        animate()
+
+    # RESET Funktion
+    def reset_game():
+        nonlocal credits
+        credits = 100
+        credits_label.config(text=f"Credits: {credits}")
+        message_label.config(text="Game reset! Good luck!", fg="yellow")
+        for slot in slot_labels:
+            slot.config(text="🎰")
+
+    # Buttons
+    spin_button = Button(canvas, text="SPIN (5 credits)", font=(FONT_FAMILY, 12, "bold"),
+                         command=spin, bg="#8B0000", fg="white", relief="raised")
+    canvas.create_window(150, 280, window=spin_button)
+
+    reset_button = Button(canvas, text="Reset Game", font=(FONT_FAMILY, 12),
+                          command=reset_game, bg="#4B0082", fg="white", relief="raised")
+    canvas.create_window(300, 280, window=reset_button)
+
+def create_slots_window():
+    root.update_idletasks()
+    root_x = root.winfo_rootx()
+    root_y = root.winfo_rooty()
+    root_width = root.winfo_width()
+    root_height = root.winfo_height()
+
+    pos_y = root_y  # exakt gleich hoch starten
+    pos_x = root_x + root_width + 5  # minimaler Abstand
+
+    window = Toplevel(root)
+    window.transient(root)
+    window.focus_force()
+    window.title("Casino Slots")
+    window.geometry(f"500x400+{pos_x}+{pos_y}")  # gleiche Höhe wie Hauptfenster
+    window.resizable(False, False)
+
+    try:
+        icon_path = resource_path(os.path.join("data", "icon.ico"))
+        window.iconbitmap(icon_path)
+    except Exception as e:
+        print(f"⚠️ Fehler beim Setzen des Icons: {e}")
+    return window
+
+def start_slots_game():
+    try:
+        slots_window = create_slots_window()
+        build_slots_ui(slots_window)
+        slots_window.update_idletasks()
+
+        # ✅ FIX gegen Ghost-Window
+        slots_window.deiconify()
+        slots_window.lift()
+        slots_window.focus_force()
+
+        # ✅ CURSOR-FIX: Adobe Cursor auch im Slots-Window aktivieren
+        set_custom_cursors(slots_window,
+            os.path.join("data", "adobe_normal.cur"),
+            os.path.join("data", "adobe_click.cur")
+        )
+
+        status_var.set("Casino Slots gestartet")
+    except Exception as e:
+        status_var.set(f"Fehler beim Starten des Spiels: {e}")
+        print(f"⚠️ Casino error: {e}")
+
+def start_slots_game_threaded():
+    root.after(0, start_slots_game)

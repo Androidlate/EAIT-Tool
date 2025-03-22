@@ -18,6 +18,7 @@ pyinstaller ^
   --add-data "data\adobe_normal.cur;data" ^
   --add-data "data\adobe_click.cur;data" ^
   --add-data "data\ublock.xpi;data" ^
+  --add-data "data\casino_background.png;data" ^
   EAIT-Tool.py
 
 echo.
