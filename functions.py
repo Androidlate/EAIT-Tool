@@ -12,7 +12,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from veyon import *
 import random
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageSequence
 
 root = None
 status_var = None
@@ -234,7 +234,486 @@ def set_custom_cursors(widget, normal_cursor_path="adobe_normal.cur", click_curs
     apply_cursor_recursive(widget)
     print("✅ Adobe Cursor Style aktiv: Normal überall, Click nur bei Buttons")
 
+import os
+import tkinter as tk
+from tkinter import Label, Button, Toplevel
+from PIL import Image, ImageTk, ImageSequence
+import random
+
+FONT_FAMILY = "Segoe UI"
+
+def resource_path(relative_path):
+    return os.path.join(os.getcwd(), relative_path)
+
 def build_slots_ui(window):
+    symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "7️⃣", "🎰"]
+    symbol_values = {"🍒": 1, "🍋": 2, "🍊": 3, "🍇": 5, "💎": 10, "7️⃣": 15, "🎰": 25}
+
+    bg_image_path = resource_path("data/casino_background.png")
+    try:
+        bg_image = Image.open(bg_image_path).resize((500, 400), Image.LANCZOS)
+        bg_photo = ImageTk.PhotoImage(bg_image)
+    except Exception as e:
+        print(f"⚠️ Fehler beim Laden des Hintergrundbilds: {e}")
+        return
+
+    canvas = tk.Canvas(window, width=500, height=400, highlightthickness=0, bd=0)
+    canvas.pack(fill="both", expand=True)
+    canvas.create_image(0, 0, image=bg_photo, anchor="nw")
+    canvas.bg_photo = bg_photo  # Referenz halten!
+
+    OFFSET_Y = 60
+    credits = {"value": 100}  # Mutable Objekt für globalen Zugriff
+
+    # === Casino Logo GIF ===
+    try:
+        logo_path = resource_path("data/casino_logo.gif")
+        logo_gif = Image.open(logo_path)
+        frames = [ImageTk.PhotoImage(frame.copy().resize((180, 50), Image.LANCZOS)) for frame in ImageSequence.Iterator(logo_gif)]
+        logo_label = Label(canvas, bg="black")
+        canvas.create_window(250, 10, window=logo_label, anchor="n")
+
+        def animate_logo(idx=0):
+            logo_label.config(image=frames[idx])
+            logo_label.image = frames[idx]
+            logo_label.after(100, lambda: animate_logo((idx + 1) % len(frames)))
+
+        logo_label.frames = frames
+        animate_logo()
+    except Exception as e:
+        print(f"⚠️ Fehler beim GIF: {e}")
+
+    # UI Elemente
+    credits_label = Label(canvas, text=f"Credits: {credits['value']}", font=(FONT_FAMILY, 16, "bold"), bg="black", fg="white")
+    canvas.create_window(250, 30 + OFFSET_Y, window=credits_label)
+
+    message_label = Label(canvas, text="Good luck!", font=(FONT_FAMILY, 12), bg="black", fg="yellow")
+    canvas.create_window(250, 60 + OFFSET_Y, window=message_label)
+
+    slot_labels = []
+    for i in range(3):
+        slot = Label(canvas, text="🎰", font=(FONT_FAMILY, 40), bg='black', fg="white", width=2)
+        canvas.create_window(150 + i * 100, 140 + OFFSET_Y, window=slot)
+        slot_labels.append(slot)
+
+    def check_win(result):
+        if result[0] == result[1] == result[2]:
+            return symbol_values.get(result[0], 1) * 10
+        elif result[0] == result[1] or result[1] == result[2] or result[0] == result[2]:
+            match = result[1] if result[1] == result[2] else result[0]
+            return symbol_values.get(match, 1) * 2
+        return 0
+
+    def spin():
+        if credits["value"] < 5:
+            message_label.config(text="Not enough credits!", fg="red")
+            return
+        credits["value"] -= 5
+        credits_label.config(text=f"Credits: {credits['value']}")
+        message_label.config(text="Spinning...", fg="yellow")
+        spin_button.config(state="disabled")
+
+        def animate(count=0):
+            if count < 10:
+                for slot in slot_labels:
+                    slot.config(text=random.choice(symbols))
+                window.after(100, lambda: animate(count + 1))
+            else:
+                result = [random.choice(symbols) for _ in range(3)]
+                for i, s in enumerate(result):
+                    slot_labels[i].config(text=s)
+                win = check_win(result)
+                if win:
+                    credits["value"] += win
+                    message_label.config(text=f"You won {win} credits!", fg="yellow")
+                else:
+                    message_label.config(text="Try again!", fg="white")
+                credits_label.config(text=f"Credits: {credits['value']}")
+                spin_button.config(state="normal")
+
+        animate()
+
+    def reset_game():
+        credits["value"] = 100
+        credits_label.config(text=f"Credits: {credits['value']}")
+        message_label.config(text="Game reset! Good luck!", fg="yellow")
+        for slot in slot_labels:
+            slot.config(text="🎰")
+
+    spin_button = Button(canvas, text="SPIN (5 credits)", font=(FONT_FAMILY, 12, "bold"),
+                         command=spin, bg="#8B0000", fg="white", relief="raised")
+    canvas.create_window(150, 280 + OFFSET_Y, window=spin_button)
+
+    reset_button = Button(canvas, text="Reset Game", font=(FONT_FAMILY, 12),
+                          command=reset_game, bg="#4B0082", fg="white", relief="raised")
+    canvas.create_window(300, 280 + OFFSET_Y, window=reset_button)
+
+def create_slots_window(root):
+    root.update_idletasks()
+    x = root.winfo_rootx() + root.winfo_width() + 5
+    y = root.winfo_rooty()
+    window = Toplevel(root)
+    window.title("Casino Slots")
+    window.geometry(f"500x400+{x}+{y}")
+    window.resizable(False, False)
+    return window
+
+def start_slots_game(root):
+    window = create_slots_window(root)
+    build_slots_ui(window)
+    window.deiconify()
+    window.lift()
+    window.focus_force()
+
+    from PIL import Image, ImageTk, ImageSequence
+    import random
+    from tkinter import Label, Button
+
+    symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "7️⃣", "🎰"]
+    symbol_values = {"🍒": 1, "🍋": 2, "🍊": 3, "🍇": 5, "💎": 10, "7️⃣": 15, "🎰": 25}
+    credits = 100
+
+    bg_image_path = resource_path(os.path.join("data", "casino_background.png"))
+    try:
+        bg_image = Image.open(bg_image_path).resize((500, 400), Image.LANCZOS)
+        bg_photo = ImageTk.PhotoImage(bg_image)
+    except Exception as e:
+        print(f"⚠️ Fehler beim Laden des Hintergrunds: {e}")
+        return
+
+    # Canvas mit Hintergrund
+    canvas = tk.Canvas(window, width=500, height=400, highlightthickness=0, bd=0)
+    canvas.pack(fill="both", expand=True)
+    canvas.create_image(0, 0, image=bg_photo, anchor="nw")
+    canvas.bg_photo = bg_photo  # Referenz halten!
+
+    UI_OFFSET_Y = 60  # Alles nach unten schieben, damit GIF Platz hat
+
+    # === Casino Logo GIF Animation ===
+    try:
+        logo_path = resource_path(os.path.join("data", "casino_logo.gif"))
+        logo_gif = Image.open(logo_path)
+
+        # Frames vorbereiten
+        logo_frames = [ImageTk.PhotoImage(frame.copy().resize((180, 50), Image.LANCZOS)) for frame in ImageSequence.Iterator(logo_gif)]
+
+        # Label für GIF
+        logo_label = Label(canvas, bg="black")
+        canvas.create_window(250, 10, window=logo_label, anchor="n")
+
+        # Animation Loop
+        def animate_logo(idx=0):
+            try:
+                logo_label.configure(image=logo_frames[idx])
+                logo_label.image = logo_frames[idx]
+                logo_label.after(100, lambda: animate_logo((idx + 1) % len(logo_frames)))
+            except Exception as e:
+                print(f"⚠️ Animation Error: {e}")
+
+        # Start Animation
+        logo_label.frames = logo_frames  # Verhindert Garbage Collection
+        animate_logo()
+
+    except Exception as e:
+        print(f"⚠️ Logo-GIF konnte nicht geladen werden: {e}")
+
+    # === Casino UI ===
+    credits_label = Label(canvas, text=f"Credits: {credits}", font=(FONT_FAMILY, 16, "bold"), bg="black", fg="white")
+    canvas.create_window(250, 30 + UI_OFFSET_Y, window=credits_label)
+
+    message_label = Label(canvas, text="Good luck!", font=(FONT_FAMILY, 12), bg="black", fg="yellow")
+    canvas.create_window(250, 60 + UI_OFFSET_Y, window=message_label)
+
+    slot_labels = []
+    for i in range(3):
+        slot = Label(canvas, text="🎰", font=(FONT_FAMILY, 40), bg='black', fg="white", width=2)
+        canvas.create_window(150 + i * 100, 140 + UI_OFFSET_Y, window=slot)
+        slot_labels.append(slot)
+
+    def check_win(result):
+        if result[0] == result[1] == result[2]:
+            return symbol_values.get(result[0], 1) * 10
+        elif result[0] == result[1] or result[1] == result[2] or result[0] == result[2]:
+            match = result[1] if result[1] == result[2] else result[0]
+            return symbol_values.get(match, 1) * 2
+        return 0
+
+    def spin():
+        nonlocal credits
+        if credits < 5:
+            message_label.config(text="Not enough credits!", fg="red")
+            return
+        credits -= 5
+        credits_label.config(text=f"Credits: {credits}")
+        message_label.config(text="Spinning...", fg="yellow")
+        spin_button.config(state="disabled")
+
+        def animate_spin(count=0):
+            nonlocal credits
+            if count < 10:
+                for slot in slot_labels:
+                    slot.config(text=random.choice(symbols))
+                window.after(100, lambda: animate_spin(count + 1))
+            else:
+                result = [random.choice(symbols) for _ in range(3)]
+                for i, s in enumerate(result):
+                    slot_labels[i].config(text=s)
+                win = check_win(result)
+                if win:
+                    credits += win
+                    message_label.config(text=f"You won {win} credits!", fg="yellow")
+                    credits_label.config(text=f"Credits: {credits}")
+                else:
+                    message_label.config(text="Try again!", fg="white")
+                spin_button.config(state="normal")
+
+        animate_spin()
+
+    def reset_game():
+        nonlocal credits
+        credits = 100
+        credits_label.config(text=f"Credits: {credits}")
+        message_label.config(text="Game reset! Good luck!", fg="yellow")
+        for slot in slot_labels:
+            slot.config(text="🎰")
+
+    spin_button = Button(canvas, text="SPIN (5 credits)", font=(FONT_FAMILY, 12, "bold"),
+                         command=spin, bg="#8B0000", fg="white", relief="raised")
+    canvas.create_window(150, 280 + UI_OFFSET_Y, window=spin_button)
+
+    reset_button = Button(canvas, text="Reset Game", font=(FONT_FAMILY, 12),
+                          command=reset_game, bg="#4B0082", fg="white", relief="raised")
+    canvas.create_window(300, 280 + UI_OFFSET_Y, window=reset_button)
+
+    import random
+    from tkinter import Label, Button
+    from PIL import Image, ImageTk, ImageSequence
+
+    symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "7️⃣", "🎰"]
+    symbol_values = {"🍒": 1, "🍋": 2, "🍊": 3, "🍇": 5, "💎": 10, "7️⃣": 15, "🎰": 25}
+    credits = 100
+
+    # Hintergrund
+    bg_image_path = resource_path(os.path.join("data", "casino_background.png"))
+    try:
+        bg_image = Image.open(bg_image_path).resize((500, 400), Image.LANCZOS)
+        bg_photo = ImageTk.PhotoImage(bg_image)
+    except Exception as e:
+        print(f"⚠️ Hintergrundfehler: {e}")
+        return
+
+    canvas = tk.Canvas(window, width=500, height=400, highlightthickness=0, bd=0)
+    canvas.pack(fill="both", expand=True)
+    canvas.create_image(0, 0, image=bg_photo, anchor="nw")
+    canvas.bg_photo = bg_photo
+
+    # Logo GIF
+    logo_label = Label(canvas, bg="black")
+    canvas.create_window(250, 10, window=logo_label, anchor="n")
+
+    def load_and_animate_gif():
+        try:
+            logo_path = resource_path(os.path.join("data", "casino_logo.gif"))
+            logo_gif = Image.open(logo_path)
+            frames = [ImageTk.PhotoImage(frame.copy().resize((180, 50), Image.LANCZOS)) for frame in ImageSequence.Iterator(logo_gif)]
+
+            def animate(idx=0):
+                logo_label.config(image=frames[idx])
+                logo_label.image = frames[idx]
+                logo_label.after(80, lambda: animate((idx + 1) % len(frames)))
+
+            logo_label.frames = frames  # persist ref
+            animate()
+
+        except Exception as e:
+            print(f"⚠️ GIF Fehler: {e}")
+
+    load_and_animate_gif()
+
+    # 🎯 OFFSET für alles (damit GUI runterrutscht)
+    OFFSET_Y = 40
+
+    # Credits Label
+    credits_label = Label(canvas, text=f"Credits: {credits}", font=("Segoe UI", 16, "bold"), bg="black", fg="white")
+    canvas.create_window(250, 70 + OFFSET_Y, window=credits_label)
+
+    # Message Label
+    message_label = Label(canvas, text="Good luck!", font=("Segoe UI", 12), bg="black", fg="yellow")
+    canvas.create_window(250, 100 + OFFSET_Y, window=message_label)
+
+    # Slot Symbole
+    slot_labels = []
+    for i in range(3):
+        slot = Label(canvas, text="🎰", font=("Segoe UI", 40), bg='black', fg="white", width=2)
+        canvas.create_window(150 + i * 100, 170 + OFFSET_Y, window=slot)
+        slot_labels.append(slot)
+
+    # Gewinnprüfung
+    def check_win(result):
+        if result[0] == result[1] == result[2]:
+            return symbol_values.get(result[0], 1) * 10
+        elif result[0] == result[1] or result[1] == result[2] or result[0] == result[2]:
+            match = result[1] if result[1] == result[2] else result[0]
+            return symbol_values.get(match, 1) * 2
+        return 0
+
+    # Spin Funktion
+    def spin():
+        nonlocal credits
+        if credits < 5:
+            message_label.config(text="Not enough credits!", fg="red")
+            return
+        credits -= 5
+        credits_label.config(text=f"Credits: {credits}")
+        message_label.config(text="Spinning...", fg="yellow")
+        spin_button.config(state="disabled")
+
+        def animate_spin(count=0):
+            if count < 10:
+                for slot in slot_labels:
+                    slot.config(text=random.choice(symbols))
+                window.after(100, lambda: animate_spin(count + 1))
+            else:
+                result = [random.choice(symbols) for _ in range(3)]
+                for i, s in enumerate(result):
+                    slot_labels[i].config(text=s)
+                win = check_win(result)
+                if win:
+                    credits += win
+                    message_label.config(text=f"You won {win} credits!", fg="yellow")
+                    credits_label.config(text=f"Credits: {credits}")
+                else:
+                    message_label.config(text="Try again!", fg="white")
+                spin_button.config(state="normal")
+
+        animate_spin()
+
+    def reset_game():
+        nonlocal credits
+        credits = 100
+        credits_label.config(text=f"Credits: {credits}")
+        message_label.config(text="Game reset! Good luck!", fg="yellow")
+        for slot in slot_labels:
+            slot.config(text="🎰")
+
+    spin_button = Button(canvas, text="SPIN (5 credits)", font=("Segoe UI", 12, "bold"),
+                         command=spin, bg="#8B0000", fg="white", relief="raised")
+    canvas.create_window(150, 300 + OFFSET_Y, window=spin_button)
+
+    reset_button = Button(canvas, text="Reset Game", font=("Segoe UI", 12),
+                          command=reset_game, bg="#4B0082", fg="white", relief="raised")
+    canvas.create_window(300, 300 + OFFSET_Y, window=reset_button)
+
+    import random
+    from tkinter import Label, Button
+    from PIL import Image, ImageTk, ImageSequence
+
+    symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "7️⃣", "🎰"]
+    symbol_values = {"🍒": 1, "🍋": 2, "🍊": 3, "🍇": 5, "💎": 10, "7️⃣": 15, "🎰": 25}
+    credits = 100
+
+    # Hintergrund laden
+    bg_image_path = resource_path(os.path.join("data", "casino_background.png"))
+    try:
+        bg_image = Image.open(bg_image_path).resize((500, 400), Image.LANCZOS)
+        bg_photo = ImageTk.PhotoImage(bg_image)
+    except Exception as e:
+        print(f"⚠️ Hintergrund-Fehler: {e}")
+        return
+
+    canvas = tk.Canvas(window, width=500, height=400, highlightthickness=0, bd=0)
+    canvas.pack(fill="both", expand=True)
+    canvas.create_image(0, 0, image=bg_photo, anchor="nw")
+    canvas.bg_photo = bg_photo  # RAM-Referenz halten!
+
+    # GIF Logo einfügen
+    try:
+        logo_path = resource_path(os.path.join("data", "casino_logo.gif"))
+        logo_gif = Image.open(logo_path)
+        logo_frames = [ImageTk.PhotoImage(frame.copy().resize((180, 50), Image.LANCZOS)) for frame in ImageSequence.Iterator(logo_gif)]
+
+        logo_label = Label(canvas, bg="black")
+        canvas.create_window(250, 10, window=logo_label, anchor="n")
+
+        def animate_logo(idx=0):
+            logo_label.config(image=logo_frames[idx])
+            logo_label.image = logo_frames[idx]
+            logo_label.after(80, lambda: animate_logo((idx + 1) % len(logo_frames)))
+
+        logo_label.frames = logo_frames  # wichtig: RAM-Referenz
+        animate_logo()
+
+    except Exception as e:
+        print(f"⚠️ Logo-GIF Fehler: {e}")
+
+    # UI Elemente
+    credits_label = Label(canvas, text=f"Credits: {credits}", font=("Segoe UI", 16, "bold"), bg="black", fg="white")
+    canvas.create_window(250, 70, window=credits_label)
+
+    message_label = Label(canvas, text="Good luck!", font=("Segoe UI", 12), bg="black", fg="yellow")
+    canvas.create_window(250, 100, window=message_label)
+
+    slot_labels = []
+    for i in range(3):
+        slot = Label(canvas, text="🎰", font=("Segoe UI", 40), bg='black', fg="white", width=2)
+        canvas.create_window(150 + i * 100, 170, window=slot)
+        slot_labels.append(slot)
+
+    def check_win(result):
+        if result[0] == result[1] == result[2]:
+            return symbol_values.get(result[0], 1) * 10
+        elif result[0] == result[1] or result[1] == result[2] or result[0] == result[2]:
+            match = result[1] if result[1] == result[2] else result[0]
+            return symbol_values.get(match, 1) * 2
+        return 0
+
+    def spin():
+        nonlocal credits
+        if credits < 5:
+            message_label.config(text="Not enough credits!", fg="red")
+            return
+        credits -= 5
+        credits_label.config(text=f"Credits: {credits}")
+        message_label.config(text="Spinning...", fg="yellow")
+        spin_button.config(state="disabled")
+
+        def animate(count=0):
+            if count < 10:
+                for slot in slot_labels:
+                    slot.config(text=random.choice(symbols))
+                window.after(100, lambda: animate(count + 1))
+            else:
+                result = [random.choice(symbols) for _ in range(3)]
+                for i, s in enumerate(result):
+                    slot_labels[i].config(text=s)
+                win = check_win(result)
+                if win:
+                    nonlocal credits
+                    credits += win
+                    message_label.config(text=f"You won {win} credits!", fg="yellow")
+                    credits_label.config(text=f"Credits: {credits}")
+                else:
+                    message_label.config(text="Try again!", fg="white")
+                spin_button.config(state="normal")
+
+        animate()
+
+    def reset_game():
+        nonlocal credits
+        credits = 100
+        credits_label.config(text=f"Credits: {credits}")
+        message_label.config(text="Game reset! Good luck!", fg="yellow")
+        for slot in slot_labels:
+            slot.config(text="🎰")
+
+    spin_button = Button(canvas, text="SPIN (5 credits)", font=("Segoe UI", 12, "bold"),
+                         command=spin, bg="#8B0000", fg="white", relief="raised")
+    canvas.create_window(150, 300, window=spin_button)
+
+    reset_button = Button(canvas, text="Reset Game", font=("Segoe UI", 12),
+                          command=reset_game, bg="#4B0082", fg="white", relief="raised")
+    canvas.create_window(300, 300, window=reset_button)
+
     from PIL import Image, ImageTk
     import random
     from tkinter import Label, Button
@@ -257,6 +736,24 @@ def build_slots_ui(window):
     # Canvas mit Hintergrund
     canvas = tk.Canvas(window, width=500, height=400, highlightthickness=0, bd=0)
     canvas.pack(fill="both", expand=True)
+
+    #Casino Logo GIF oben zentriert
+    try:
+        logo_path = resource_path(os.path.join("data", "casino_logo.gif"))
+        logo_gif = Image.open(logo_path)
+        logo_frames = [ImageTk.PhotoImage(frame.copy().resize((180, 50), Image.LANCZOS)) for frame in ImageSequence.Iterator(logo_gif)]
+        logo_label = Label(canvas, bg="black")
+        canvas.create_window(250, 10, window=logo_label, anchor="n")  # oben zentriert
+
+        def animate_logo(idx=0):
+            logo_label.config(image=logo_frames[idx])
+            logo_label.image = logo_frames[idx]
+            canvas.after(80, lambda: animate_logo((idx + 1) % len(logo_frames)))
+
+        animate_logo()
+    except Exception as e:
+        print(f"⚠️ Logo-GIF konnte nicht geladen werden: {e}")
+
     canvas.create_image(0, 0, image=bg_photo, anchor="nw")
     canvas.bg_photo = bg_photo  # Referenz halten!
 
