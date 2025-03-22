@@ -1,24 +1,3 @@
-# Changelog:
-"""
-0.2.2 - Resized Main Window & Disabled Window Resizing
-0.2.3 - Added Brave
-0.2.4 - Added uBlock for Brave
-0.2.5 - Added Systemtime Change
-0.2.6 - Added Systemtime Change Methods
-0.2.7 - Created Portable Versions for VPN and Jetbrains Toolbox, New Veyon Warning Label, Minor Changes
-0.2.8 - Icon fixed
-0.2.9 - Show UAC Prompt if run as non-Admin
-0.3 - Added Hotkey Activation
-0.3.1 - Added Systemtray for Hotkey listening + Visual feedback
-0.3.2 - Minor Changes
-0.3.3 - Improved Veyon process handling
-0.3.4 - Visual feedback refined
-0.3.5 - Thread safety & error handling improved
-0.3.6 - Fixed Styling & Veyon Indicator
-0.3.7 - Added Dark / Light Mode Button
-0.3.8 - Added Custom Cursor, Styling, Bugfixes
-0.3.9 - Removed Change System Time completely as it was not working on school computers
-"""
 import traceback
 from config import VERSION
 from admin import *
@@ -64,7 +43,7 @@ FONT_FAMILY = "Segoe UI"
 
 # Icon setzen
 try:
-    icon_path = resource_path("icon.ico")
+    icon_path = resource_path(os.path.join("data", "icon.ico"))
     root.iconbitmap(default=icon_path)
 except Exception as e:
     print(f"⚠️ Icon konnte nicht gesetzt werden: {e}")
@@ -181,7 +160,7 @@ action_frame.place(relx=0.0, rely=1.0, anchor="sw", x=20, y=-20)
 
 # Brave Button
 try:
-    brave_img = PIL.Image.open(resource_path("brave/brave_32x32.png")).resize((28, 28))
+    brave_img = PIL.Image.open(resource_path(os.path.join("data", "brave_32x32.png"))).resize((28, 28))
     brave_icon = PIL.ImageTk.PhotoImage(brave_img)
     image_refs["brave"] = brave_icon  # ⬅️ Speichert das Icon dauerhaft
     ttk.Button(action_frame, 
@@ -194,7 +173,7 @@ set_root_ref(root)
 set_globals(root, status_var, status_label)
 start_stop_hotkeys()
 apply_theme()
-set_custom_cursors(root, "adobe_normal.cur", "adobe_click.cur")
+set_custom_cursors(root, os.path.join("data", "adobe_normal.cur"), os.path.join("data", "adobe_click.cur"))
 
 def safe_mainloop():
     try:

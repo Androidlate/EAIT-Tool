@@ -1,3 +1,6 @@
 data/brave.zip
 /__pycache__
 /CHANGELOG
+EAIT-Tool.spec
+/build
+/dist

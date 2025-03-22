@@ -24,20 +24,19 @@ def set_globals(main_root, main_status_var, main_status_label=None):
 
 # ---------------------- Functions ----------------------
 def resource_path(relative_path):
-    """Für das Handling von Ressourcen innerhalb der EXE"""
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.abspath(relative_path)
 
 # Icon Fix
 try:
-    icon_path = resource_path("icon.ico")
+    icon_path = resource_path(os.path.join("data", "icon.ico"))
 except Exception as e:
     print(f"⚠️ Icon konnte nicht gesetzt werden: {e}")
 
 def start_protonvpn_portable():
     try:
-        zip_path = resource_path("ProtonVPN.zip")
+        zip_path = resource_path(os.path.join("data", "ProtonVPN.zip"))
         temp_dir = os.path.join(tempfile.gettempdir(), "eait_protonvpn")
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
@@ -62,7 +61,7 @@ def install_adblock():
 
 def start_toolbox_portable():
     try:
-        zip_path = resource_path("jetbrains_toolbox.zip")
+        zip_path = resource_path(os.path.join("data", "jetbrains_toolbox.zip"))
         temp_dir = os.path.join(tempfile.gettempdir(), "eait_toolbox")
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
@@ -80,7 +79,7 @@ def start_toolbox_portable():
 
 def start_brave_and_cleanup():
     try:
-        zip_path = resource_path("brave.zip")
+        zip_path = resource_path(os.path.join("data", "brave.zip"))
         temp_dir = os.path.join(tempfile.gettempdir(), "eait_brave")
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
