@@ -68,9 +68,3 @@ This tool was created to support educational autonomy and digital self-managemen
 **It is not intended for misuse or deceptive purposes.**
 
 ---
-
-## 📜 Changelog
-
-👉 [View Full CHANGELOG.md →](./CHANGELOG.md)
-
----
