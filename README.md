@@ -3,16 +3,16 @@
 A powerful and lightweight Windows tool designed for educational use – developed specifically for **EAIT** with a focus on **autonomy, efficiency, and clean usability**.  
 ✨ Fully portable – no installation required, just run and go.
 
----
+
 
 ![EAIT Tool Screenshot](./data/screenshot.png)
 
----
+
 
 ## 📦 Version: `v0.3.9`  
 📜 [View Changelog →](./CHANGELOG.md)
 
----
+
 
 ## 🧠 Features
 
@@ -40,7 +40,7 @@ A powerful and lightweight Windows tool designed for educational use – develop
 ✅ **Minimalistic & Robust UI**  
 → Clean, responsive design – built for functionality, not fluff
 
----
+
 
 ## ⚡ Hotkeys
 
@@ -49,7 +49,7 @@ A powerful and lightweight Windows tool designed for educational use – develop
 | `Ctrl + F9`      | Pause all Veyon processes         |
 | `Ctrl + F12`     | Restart/Resume Veyon processes    |
 
----
+
 ## ⚙️ Setup
 
 No installation required.  
@@ -59,7 +59,7 @@ Simply run `EAIT-Tool.exe` on any Windows system.
 > When starting the tool, a prompt will appear asking whether to run it as administrator.  
 > If declined, the application will exit with a message and cannot continue.
 
----
+
 
 ## 🙌 Disclaimer
 
@@ -67,4 +67,3 @@ Simply run `EAIT-Tool.exe` on any Windows system.
 This tool was created to support educational autonomy and digital self-management.  
 **It is not intended for misuse or deceptive purposes.**
 
----
