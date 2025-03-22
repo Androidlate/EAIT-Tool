@@ -9,7 +9,7 @@ A powerful and lightweight Windows tool designed for educational use – develop
 
 
 
-## 📦 Version: `v0.3.9`  
+## 📦 Version: `v0.4`  
 📜 [View Changelog →](./CHANGELOG.md)
 
 

@@ -1,6 +1,10 @@
-## [0.3.9](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.3.9)
+## [0.4]
+## Added
+- Loading Screen
+## [0.3.9]
 ### Removed
 - Change System Time functionality (fully removed due to incompatibility on school computers)
+### Fixed
 - Minor internal improvements
 ## [0.3.8]
 ### Added
