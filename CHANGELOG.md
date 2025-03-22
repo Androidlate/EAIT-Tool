@@ -1,3 +1,7 @@
+
+## [0.4.1]
+### Added
+- Casino Minigame
 ## [0.4]
 ## Added
 - Loading Screen
