@@ -1,4 +1,4 @@
-## [0.3.9]
+## [0.3.9](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.3.9)
 ### Removed
 - Change System Time functionality (fully removed due to incompatibility on school computers)
 - Minor internal improvements
