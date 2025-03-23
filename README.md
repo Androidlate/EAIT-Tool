@@ -11,7 +11,7 @@ There are two available versions of this tool:
 
 
 
-![EAIT Tool Screenshot](./data/screenshot.png)
+![EAIT Tool Screenshot](./screenshot.png)
 
 
 
