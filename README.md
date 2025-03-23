@@ -1,7 +1,13 @@
 # 🚀 EAIT-Tool
 
-A powerful and lightweight Windows tool designed for educational use – developed specifically for **EAIT** with a focus on **autonomy, efficiency, and clean usability**.  
-✨ Fully portable – no installation required, just run and go.
+A powerful and lightweight Windows tool designed for educational use – developed specifically for **EAIT**, with a focus on **autonomy, efficiency, and clean usability**.  
+✨ **Fully portable** – no installation required, just run and go.
+
+There are two available versions of this tool:
+
+- **Standard Version** – includes extended features such as **Veyon control** and additional administrative tools.
+    
+- **Safe Version** – a minimal variant without **Veyon control features**, designed for environments where **simplicity and safety** are a priority.
 
 
 
