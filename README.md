@@ -32,15 +32,15 @@ There are two available versions of this tool:
 → Instantly pause or restart **Veyon** using global keyboard shortcuts
 
 ✅ **System Tray Icon & Visual Feedback**  
-→ See at a glance whether Veyon is running or paused
+→ Small square shows if Veyon is running or paused.
 
-✅ **ProtonVPN Portable Support**  
-→ Quickly launch ProtonVPN without installation
+✅ **ProtonVPN Portable Setup built right in**  
+→ Quickly launch ProtonVPN Setup
 
-✅ **JetBrains Toolbox Portable**  
-→ Use your favorite IDEs on the fly
+✅ **JetBrains Toolbox Portable Setup**  
+→ Use your favorite IDEs once installed
 
-✅ **Brave Portable with uBlock Origin**  
+✅ **Brave Portable with uBlock Origin preloaded**  
 → Privacy-focused, ad-free browsing right out of the box
 
 ✅ **Dark / Light Mode Toggle**  
@@ -50,7 +50,7 @@ There are two available versions of this tool:
 → Adobe-style cursor for that extra visual edge
 
 ✅ **Minimalistic & Robust UI**  
-→ Clean, responsive design – built for functionality, not fluff
+→ Clean, responsive design – built for functionality
 
 
 
