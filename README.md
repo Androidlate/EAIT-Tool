@@ -73,3 +73,8 @@ Simply run `EAIT-Tool.exe` on any Windows system.
 This tool was created to support educational autonomy and digital self-management.  
 **It is not intended for misuse or deceptive purposes.**
 
+
+## ⚠️ Legal Notice
+This project does NOT include third-party software like ProtonVPN, Brave, or JetBrains Toolbox.  
+All trademarks belong to their respective owners.  
+Please download third-party tools from their official websites.

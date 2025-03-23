@@ -1,0 +1,11 @@
+NOTICE:
+
+This project includes references to third-party software, which is NOT included in this repository.
+
+The following tools are mentioned or optionally used by the application:
+- ProtonVPN (protonvpn.com)
+- JetBrains Toolbox (jetbrains.com)
+- Brave Browser (brave.com)
+
+These tools are not modified, redistributed, or included in this repository.
+All trademarks and software belong to their respective owners.
