@@ -1,16 +1,16 @@
-## [0.4.2]
+## [0.4.2](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.4.2)
 ## Added
 - Casino GIF
 ## Fixed
 - Reduced Veyon Activation Indicator: 3s -> 1s
 - Reduced Casino Credits: 100 -> 20
-## [0.4.1]
+## [0.4.1](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.4.1)
 ### Added
 - Casino Minigame
-## [0.4]
+## [0.4](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.4)
 ## Added
 - Loading Screen
-## [0.3.9]
+## [0.3.9](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.3.9)
 ### Removed
 - Change System Time functionality (fully removed due to incompatibility on school computers)
 ### Fixed
