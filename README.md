@@ -1,6 +1,6 @@
 
 ## ⚠️ Hinweis
-Die Anwendung dieser Software liegt ausschließlich in der **Eigenverantwortung der Nutzenden**. Der Entwickler übernimmt **keine Haftung** für missbräuchliche oder zweckentfremdete Nutzung. Die enthaltenen Systemfunktionen dienen der technischen Steuerung und Wartung in Bildungs- und Testumgebungen.
+Die Anwendung dieser Software liegt ausschließlich in der **Eigenverantwortung der Nutzenden**. Der Entwickler übernimmt **keine Haftung** für eine missbräuchliche oder zweckentfremdete Nutzung. Die enthaltenen Systemfunktionen dienen ausschließlich der **technischen Steuerung und Wartung in Bildungs- und Testumgebungen**.
 
 
 
@@ -34,17 +34,17 @@ There are two available versions of this tool:
 ✅ **System Tray Icon & Visual Feedback**  
 → Small square shows if Veyon is running or paused.
 
-✅ **ProtonVPN Portable Setup built right in**  
+✅ **Built-in ProtonVPN Portable Setup**  
 → Quickly launch ProtonVPN Setup
 
 ✅ **JetBrains Toolbox Portable Setup**  
-→ Use your favorite IDEs once installed
+→ Quickly launch your favorite IDEs using JetBrains Toolbox
 
 ✅ **Brave Portable with uBlock Origin preloaded**  
 → Privacy-focused, ad-free browsing right out of the box
 
 ✅ **Dark / Light Mode Toggle**  
-→ Switch the theme to match your workflow
+→ Toggle between dark and light mode to match your workflow
 
 ✅ **Custom Cursor Design**  
 → Adobe-style cursor for that extra visual edge
