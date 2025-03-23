@@ -1,9 +1,6 @@
 
-## 🙌 Disclaimer
-
-**Use responsibly.**  
-This tool was created to support educational autonomy and digital self-management.  
-**It is not intended for misuse or deceptive purposes.**
+## ⚠️ Hinweis
+Die Anwendung dieser Software liegt ausschließlich in der Eigenverantwortung der Nutzenden. Der Entwickler übernimmt keine Haftung für missbräuchliche oder zweckentfremdete Nutzung. Die enthaltenen Systemfunktionen dienen der technischen Steuerung und Wartung in Bildungs- und Testumgebungen.
 
 
 
