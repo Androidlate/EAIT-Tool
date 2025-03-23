@@ -1,6 +1,6 @@
 
 ## ⚠️ Hinweis
-Die Anwendung dieser Software liegt ausschließlich in der Eigenverantwortung der Nutzenden. Der Entwickler übernimmt keine Haftung für missbräuchliche oder zweckentfremdete Nutzung. Die enthaltenen Systemfunktionen dienen der technischen Steuerung und Wartung in Bildungs- und Testumgebungen.
+Die Anwendung dieser Software liegt ausschließlich in der **Eigenverantwortung der Nutzenden**. Der Entwickler übernimmt **keine Haftung** für missbräuchliche oder zweckentfremdete Nutzung. Die enthaltenen Systemfunktionen dienen der technischen Steuerung und Wartung in Bildungs- und Testumgebungen.
 
 
 
