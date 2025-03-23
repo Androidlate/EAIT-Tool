@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import pygame
 import threading
 import tkinter as tk
 from tkinter import ttk
@@ -17,6 +18,14 @@ root.withdraw()
 status_var = None
 status_label = None
 image_refs = {}
+
+def play_startup_sound():
+    try:
+        pygame.mixer.init()
+        pygame.mixer.music.load(resource_path("data/startup_sound.mp3"))
+        pygame.mixer.music.play()
+    except Exception as e:
+        print(f"⚠️ Sound konnte nicht abgespielt werden: {e}")
 
 def show_loading_screen(parent_root):
     loading = tk.Toplevel(parent_root)
@@ -215,7 +224,8 @@ def build_main_gui():
     set_status_refs(status_var, status_label_)
 
     apply_theme()
-    set_custom_cursors(root, "data/adobe_normal.cur", "data/adobe_click.cur")
+    set_custom_cursors(root, "data/adobe_normal.cur", "data/adobe_click.cur")   
+    play_startup_sound()
 
 def safe_mainloop():
     try:

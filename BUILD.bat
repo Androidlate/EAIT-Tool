@@ -1,8 +1,7 @@
 @echo off
 title Building EAIT-Tool
 
-echo Entferne alte Build-Ordner ...
-rmdir /s /q build
+echo Entferne alte dist-Ordner ...
 rmdir /s /q dist
 
 echo Starte PyInstaller-Build ...

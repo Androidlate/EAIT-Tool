@@ -1,5 +1,6 @@
 import os
 import sys
+import pygame
 import threading
 import tkinter as tk
 from tkinter import ttk
@@ -8,6 +9,14 @@ from admin import *
 from functions import *  # <-- Achtung: Hier wird das Slot-Spiel importiert
 import PIL.Image
 import PIL.ImageTk
+
+def play_startup_sound():
+    try:
+        pygame.mixer.init()
+        pygame.mixer.music.load(resource_path("data/startup_sound.mp3"))
+        pygame.mixer.music.play()
+    except Exception as e:
+        print(f"⚠️ Sound konnte nicht abgespielt werden: {e}")
 
 root = tk.Tk()
 root.withdraw()
@@ -200,6 +209,8 @@ def build_main_gui():
 
     apply_theme()
     set_custom_cursors(root, "data/adobe_normal.cur", "data/adobe_click.cur")
+    play_startup_sound()
+
 
 def safe_mainloop():
     try:
