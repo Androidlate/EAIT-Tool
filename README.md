@@ -12,12 +12,12 @@ This Tool was created with the help of AI. A powerful and lightweight Windows to
 There are two available versions of this tool:
 
 - **Standard Version** – includes extended features such as **Veyon control** and additional administrative tools.
-    
-- **Safe Version** – a minimal variant without **Veyon control features**, designed for environments where **simplicity and safety** are a priority.
-
-
 
 ![EAIT Tool Screenshot](./screenshot.png)
+
+- **Safe Version** – a minimal variant without **Veyon control features**, designed for environments where **simplicity and safety** are a priority.
+
+![EAIT Tool Screenshot](./screenshot_safeversion.png)
 
 
 
