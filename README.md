@@ -1,3 +1,12 @@
+
+## 🙌 Disclaimer
+
+**Use responsibly.**  
+This tool was created to support educational autonomy and digital self-management.  
+**It is not intended for misuse or deceptive purposes.**
+
+
+
 # 🚀 EAIT-Tool
 
 This Tool was created with the help of AI. A powerful and lightweight Windows tool designed for educational use – developed specifically for **EAIT**, with a focus on **autonomy, efficiency, and clean usability**.  
@@ -66,15 +75,7 @@ Simply run `EAIT-Tool.exe` on any Windows system.
 > If declined, the application will exit with a message and cannot continue.
 
 
-
-## 🙌 Disclaimer
-
-**Use responsibly.**  
-This tool was created to support educational autonomy and digital self-management.  
-**It is not intended for misuse or deceptive purposes.**
-
-
-## ⚠️ DISCLAIMER:
+## ⚠️ COPYRIGHT DISCLAIMER:
 The downloadable `.exe` file may contain official, unmodified installers from third-party software vendors 
 (e.g. ProtonVPN, JetBrains Toolbox, Brave Browser), solely for educational/testing purposes.
 
