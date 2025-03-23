@@ -209,14 +209,13 @@ def build_main_gui():
         slots_button.pack(side="left", padx=5)
     except Exception as e:
         print(f"⚠️ Slots Button Error: {e}")
-
     set_root_ref(root)
     set_globals(root, status_var, status_label_)
     from veyon import set_status_refs
     set_status_refs(status_var, status_label_)
 
     apply_theme()
-    set_custom_cursors(root, os.path.join("data", "adobe_normal.cur"), os.path.join("data", "adobe_click.cur"))
+    set_custom_cursors(root, "data/adobe_normal.cur", "data/adobe_click.cur")
 
 def safe_mainloop():
     try:

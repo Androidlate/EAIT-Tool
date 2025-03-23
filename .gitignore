@@ -4,3 +4,6 @@ data/brave.zip
 EAIT-Tool.spec
 /build
 /dist
+build_log.txt
+buildlog.tmp
+spinner.tmp

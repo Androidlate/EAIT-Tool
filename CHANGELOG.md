@@ -1,4 +1,9 @@
-
+## [0.4.2]
+## Added
+- Casino GIF
+## Fixed
+- Reduced Veyon Activation Indicator: 3s -> 1s
+- Reduced Casino Credits: 100 -> 20
 ## [0.4.1]
 ### Added
 - Casino Minigame

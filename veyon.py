@@ -41,7 +41,7 @@ def show_start_popup():
     label.pack(expand=True, fill=BOTH)
 
     def close_after_delay():
-        time.sleep(3)
+        time.sleep(1)
         try:
             popup.destroy()
         except:

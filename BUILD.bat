@@ -6,19 +6,13 @@ rmdir /s /q build
 rmdir /s /q dist
 
 echo Starte PyInstaller-Build ...
+
 pyinstaller ^
+  --noconfirm ^
   --onefile ^
-  --noconsole ^
+  --windowed ^
   --icon "data\icon.ico" ^
-  --add-data "data\icon.ico;data" ^
-  --add-data "data\ProtonVPN.zip;data" ^
-  --add-data "data\jetbrains_toolbox.zip;data" ^
-  --add-data "data\brave.zip;data" ^
-  --add-data "data\brave_32x32.png;data" ^
-  --add-data "data\adobe_normal.cur;data" ^
-  --add-data "data\adobe_click.cur;data" ^
-  --add-data "data\ublock.xpi;data" ^
-  --add-data "data\casino_background.png;data" ^
+  --add-data "data;data" ^
   EAIT-Tool.py
 
 echo.
