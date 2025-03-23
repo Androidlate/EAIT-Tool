@@ -29,7 +29,7 @@ There are two available versions of this tool:
 ## 🧠 Features
 
 ✅ **Hotkey Control**  
-→ Instantly pause or restart **Veyon** using global keyboard shortcuts
+→ Instantly pause or restart **Veyon** using global [keyboard shortcuts](https://github.com/Androidlate/EAIT-Tool?tab=readme-ov-file#-hotkeys)
 
 ✅ **System Tray Icon & Visual Feedback**  
 → Small square shows if Veyon is running or paused.
