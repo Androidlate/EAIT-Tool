@@ -74,7 +74,10 @@ This tool was created to support educational autonomy and digital self-managemen
 **It is not intended for misuse or deceptive purposes.**
 
 
-## ⚠️ Legal Notice
-This project does NOT include third-party software like ProtonVPN, Brave, or JetBrains Toolbox.  
-All trademarks belong to their respective owners.  
-Please download third-party tools from their official websites.
+## ⚠️ DISCLAIMER:
+The downloadable `.exe` file may contain official, unmodified installers from third-party software vendors 
+(e.g. ProtonVPN, JetBrains Toolbox, Brave Browser), solely for educational/testing purposes.
+
+We do not claim ownership or rights over these tools. All trademarks and software are owned by their respective developers.  
+If required, these tools should be downloaded from their official sources.  
+If this violates any distribution rights, please contact us and we will remove the release file immediately.
