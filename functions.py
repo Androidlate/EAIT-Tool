@@ -252,8 +252,8 @@ def resource_path(relative_path):
 
 def build_slots_ui(window):
     FONT_FAMILY = "Segoe UI"
-    symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "7️⃣", "🎰"]
-    symbol_values = {"🍒": 1, "🍋": 2, "🍊": 3, "🍇": 5, "💎": 10, "7️⃣": 15, "🎰": 25}
+    symbols = ["🍒", "🍋", "🍊", "🍇", "💎", "🎱", "🎰"]
+    symbol_values = {"🍒": 1, "🍋": 2, "🍊": 3, "🍇": 5, "💎": 10, "🎱": 15, "🎰": 25}
     credits = {"value": 20}
 
     OFFSET_Y = 60

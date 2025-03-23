@@ -5,6 +5,7 @@
 ## Fixed
 - Reduced Veyon Activation Indicator: 3s -> 1s
 - Reduced Casino Credits: 100 -> 20
+- Replaced Casino Slots Number 7 with 🎱
 ## [0.4.1](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.4.1)
 ### Added
 - Casino Minigame
