@@ -23,7 +23,7 @@ There are two available versions of this tool:
 ## 🧠 Features
 
 ✅ **Hotkey Control**  
-→ Instantly pause or restart **Veyon** using global keyboard shortcuts (Ctrl + F9 / Ctrl + F12)
+→ Instantly pause or restart **Veyon** using global keyboard shortcuts
 
 ✅ **System Tray Icon & Visual Feedback**  
 → See at a glance whether Veyon is running or paused
