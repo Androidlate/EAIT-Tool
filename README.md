@@ -44,7 +44,7 @@ There are two available versions of this tool:
 → Privacy-focused, ad-free browsing right out of the box
 
 ✅ **Dark / Light Mode Toggle**  
-→ Switch the theme to match your workflow or mood 😎
+→ Switch the theme to match your workflow
 
 ✅ **Custom Cursor Design**  
 → Adobe-style cursor for that extra visual edge
