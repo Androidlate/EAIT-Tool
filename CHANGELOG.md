@@ -1,6 +1,7 @@
 ## [0.4.2](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.4.2)
 ## Added
 - Casino GIF
+- Soundeffect on launch
 ## Fixed
 - Reduced Veyon Activation Indicator: 3s -> 1s
 - Reduced Casino Credits: 100 -> 20
