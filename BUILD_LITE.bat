@@ -11,7 +11,7 @@ pyinstaller ^
   --noconfirm ^
   --onefile ^
   --windowed ^
-  --icon "data/icon.ico" ^
+  --icon="%cd%\data\icon.ico" ^
   --add-data "data\\casino_logo.gif;data" ^
   --add-data "data\\casino_background.png;data" ^
   --add-data "data\\adobe_normal.cur;data" ^
