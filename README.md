@@ -9,7 +9,7 @@ Die Anwendung dieser Software liegt ausschließlich in der **Eigenverantwortung 
 This Tool was created with the help of AI. A powerful and lightweight Windows tool designed for educational use – developed specifically for **EAIT**, with a focus on **autonomy, efficiency, and clean usability**.  
 ✨ **Fully portable** – no installation required, just run and go.
 
-There are two available versions of this tool:
+There are three available versions of this tool:
 
 - **Standard Version** – includes extended features such as **Veyon control** and additional administrative tools.
 
@@ -19,7 +19,9 @@ There are two available versions of this tool:
 
 ![EAIT Tool Screenshot](./screenshot_safeversion.png)
 
+- **LITE Version** – the most minimal variant, without **Veyon control features**, focused on core functionality. It leverages the internet to download essential tools on demand, reducing file size and keeping the build lightweight.
 
+![EAIT Tool Screenshot](./screenshot_liteversion.png)
 
 ## 📦 Version: `v0.4.2`  
 📜 [View Changelog →](./CHANGELOG.md)
