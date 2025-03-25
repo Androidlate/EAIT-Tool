@@ -12,6 +12,8 @@ from veyon import *
 import PIL.Image
 import PIL.ImageTk
 
+casino_window = None  # globales Referenzfenster
+
 root = tk.Tk()
 root.withdraw()
 
@@ -220,6 +222,8 @@ def build_main_gui():
         print(f"⚠️ Slots Button Error: {e}")
     set_root_ref(root)
     set_globals(root, status_var, status_label_)
+    from functions import set_casino_ref
+    set_casino_ref(None)
     from veyon import set_status_refs
     set_status_refs(status_var, status_label_)
 
@@ -240,22 +244,27 @@ def safe_mainloop():
 # ----------------------------------------------
 # LAUNCH:
 show_loading_screen(root)  # Zeig Ladescreen
-# -------------------------------------
-# Wenn Main Window geschlossen wird: Alles beenden
+# ------------------------------------
+
 def on_main_close():
     try:
-        # ALLE offenen Fenster killen
-        for window in root.winfo_children():
-            if isinstance(window, tk.Toplevel):
-                window.destroy()
+        from functions import casino_window
+        print("✅ Main Window wird ausgeblendet. Casino bleibt offen.")
 
-        root.destroy()
-        sys.exit(0)
+        root.withdraw()  # root nur verstecken, nicht zerstören!
+
+        # Wenn Casino offen ist → Casino bekommt eigenen Loop
+        if casino_window and casino_window.winfo_exists():
+            print("🎰 Casino läuft im eigenen Loop...")
+            casino_window.protocol("WM_DELETE_WINDOW", lambda: (print("🎰 Casino wurde geschlossen."), sys.exit(0)))
+        else:
+            print("👋 Kein Casino offen → Exit.")
+            sys.exit(0)
+
     except Exception as e:
-        print(f"⚠️ Fehler beim Beenden: {e}")
-        root.destroy()
+        print(f"⚠️ Fehler beim Main-Close: {e}")
         sys.exit(1)
 
 # Wichtig: Close-Handler anhängen
 root.protocol("WM_DELETE_WINDOW", on_main_close)
-safe_mainloop()            # Mainloop
+safe_mainloop() # Mainloop

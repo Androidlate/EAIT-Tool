@@ -14,6 +14,12 @@ from veyon import *
 import random
 from PIL import Image, ImageTk, ImageSequence
 
+casino_window = None
+
+def set_casino_ref(ref):
+    global casino_window
+    casino_window = ref
+
 root = None
 status_var = None
 status_label = None 
@@ -363,8 +369,8 @@ def create_slots_window(parent_root):
     pos_y = root_y
     pos_x = root_x + root_width + 5
 
-    window = Toplevel(parent_root)
-    window.transient(parent_root)
+    # Eigenständiges Fenster
+    window = Toplevel()
     window.title("Casino Slots")
     window.geometry(f"500x400+{pos_x}+{pos_y}")
     window.resizable(False, False)
@@ -378,15 +384,20 @@ def create_slots_window(parent_root):
     return window
 
 def start_slots_game(root):
-    window = create_slots_window(root)
-    build_slots_ui(window)
+    global casino_window
+    if casino_window and casino_window.winfo_exists():
+        casino_window.lift()
+        casino_window.focus_force()
+        return
 
-    # ✅ Jetzt korrekt: erst UI bauen → dann Cursors
-    set_custom_cursors(window, "data/adobe_normal.cur", "data/adobe_click.cur")
+    casino_window = create_slots_window(root)
+    set_casino_ref(casino_window)  # 🆕 speichere Referenz für andere Stellen
+    build_slots_ui(casino_window)
+    set_custom_cursors(casino_window, "data/adobe_normal.cur", "data/adobe_click.cur")
 
-    window.deiconify()
-    window.lift()
-    window.focus_force()
+    casino_window.deiconify()
+    casino_window.lift()
+    casino_window.focus_force()
 
 def start_slots_game_threaded():
     root.after(0, lambda: start_slots_game(root))
