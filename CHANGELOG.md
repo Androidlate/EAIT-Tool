@@ -1,3 +1,6 @@
+## [0.4.3](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.4.3)
+## Fixed
+- Seperated Casino and Main-Window
 ## [0.4.2](https://github.com/Androidlate/EAIT-Tool/releases/tag/v0.4.2)
 ## Added
 - Casino GIF
