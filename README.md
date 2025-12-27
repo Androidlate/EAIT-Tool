@@ -23,7 +23,7 @@ There are three available versions of this tool:
 
 ![EAIT Tool Screenshot](./screenshot_liteversion.png)
 
-## 📦 Version: `v0.4.2`  
+## 📦 Version: `v0.4.3`  
 📜 [View Changelog →](./CHANGELOG.md)
 
 
